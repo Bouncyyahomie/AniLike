@@ -2,4 +2,5 @@ uvicorn
 fastapi
 jinja2
 anyio
-request
+requests
+sqlalchemy
