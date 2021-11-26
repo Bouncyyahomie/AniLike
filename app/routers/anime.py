@@ -1,7 +1,7 @@
 """API router for anime."""
 from fastapi import APIRouter, Depends, status, HTTPException
 from starlette.status import HTTP_202_ACCEPTED, HTTP_204_NO_CONTENT
-from app.fetch_api import get_rating
+from app import fetch_api
 from app import schemas
 from app.database import get_db
 from sqlalchemy.orm import Session
@@ -18,18 +18,25 @@ async def read_anime():
     url = "https://kitsu.io/api/edge"
     name_list = ["inuyasha", "one piece", "naruto", "bleach", "gintama"]
     for name in name_list:
-        data.append(get_rating(url=url, name=name))
+        data.append(fetch_api.kitsu_get_rating(url=url, name=name))
     return {"messages": data}
 
 
-@router.get("/top", include_in_schema=False)
-async def read_top_anime():
-    pass
+@router.get("/anilist")
+async def read_ani():
+    data = fetch_api.anilist_read()
+    return data
 
 
-@router.get("/{genre_id}", include_in_schema=False)
-async def read_genre():
-    pass
+@router.get("/trend")
+async def read_trend():
+    return fetch_api.kitsu_get_trend_anime()
+
+
+@router.get("/genres")
+async def get_genres():
+    data = fetch_api.kitsu_get_catagories()
+    return data
 
 
 @router.get("/", response_model=List[schemas.ShowAnime])

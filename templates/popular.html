@@ -1,0 +1,7 @@
+{% extends "layout.html" %} {% block content %}
+<h2 id= "loading"> Loading...</h2>
+<a href="http://127.0.0.1:5050/">back</a>
+<div id="popularAnime"></div>
+
+<script src="{{ url_for('static', path='js/popular.js') }}"></script>
+{% endblock %}
