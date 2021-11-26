@@ -38,6 +38,10 @@ async def get_genres():
     data = fetch_api.kitsu_get_catagories()
     return data
 
+@router.get("/agerating")
+async def get_agerating():
+    data = fetch_api.kitsu_get_age_rating()
+    return data
 
 @router.get("/", response_model=List[schemas.ShowAnime])
 async def get_anime(db: Session = Depends(get_db)):

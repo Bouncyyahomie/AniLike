@@ -26,7 +26,9 @@ const renderGraph = (animeData) => {
         },
         yaxis: {
             zeroline: false,
-            gridwidth: 2
+            gridwidth: 2,
+            rangemode: 'tozero',
+            range:[0,100]
         },
         bargap: 0.05
     };

@@ -34,7 +34,8 @@ def kitsu_get_catagories():
         data = content["data"]
         for anime in data:
             attr = anime["attributes"]
-            d = {"title": attr["title"], "total_media_count": attr["totalMediaCount"]}
+            d = {"title": attr["title"],
+                "total_media_count": attr["totalMediaCount"]}
             data_list.append(d)
         curr_url = next_url
     print("end")
@@ -56,6 +57,37 @@ def kitsu_get_trend_anime():
         data_list.append(data)
     data_list.sort(key=itemgetter("popularityRank"))
     return data_list
+
+
+def kitsu_get_age_rating():
+    print("start")
+    data_list = []
+    curr_url = (
+        f"https://kitsu.io/api/edge/anime?page%5Blimit%5D=20&page%5Boffset%5D=0"
+    )
+    next_url = ""
+    last_url = (
+        "https://kitsu.io/api/edge/anime?page%5Blimit%5D=20&page%5Boffset%5D=17000"
+    )
+    while curr_url != last_url:
+        res = requests.get(url=curr_url)
+        content = res.json()
+        print(curr_url)
+        next_url = content["links"]["next"]
+        data = content["data"]
+        for anime in data:
+            attr = anime["attributes"]
+            if not attr["ageRatingGuide"]:
+                continue
+            d = {"Title": attr["canonicalTitle"],
+                 "ageRating": attr["ageRating"],
+                "ageRatingGuide": attr["ageRatingGuide"]}
+            data_list.append(d)
+        curr_url = next_url
+    print("end")
+    data_list.sort(key=itemgetter("ageRatingGuide"))
+    return data_list
+
 
 
 def anilist_read():
