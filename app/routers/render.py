@@ -23,3 +23,9 @@ def render_genres_count(request: Request):
     return templates.TemplateResponse(
         "catagories_count.html", {"request": request, "id": id}
     )
+
+@router.get("/agerating", response_class=HTMLResponse, include_in_schema=False)
+def render_agerating(request: Request):
+    return templates.TemplateResponse(
+        "agerating.html", {"request": request, "id": id}
+    )
