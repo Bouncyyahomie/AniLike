@@ -16,8 +16,8 @@ const renderGraph = (animeData) => {
         font: {
             family: 'Raleway, sans-serif'
             },
-        height: 400,
-        width: 500
+        height: 1000,
+        width: 1100
         }
     const config = { responsive: true }
     Plotly.newPlot('agerating', data, layout, config);
