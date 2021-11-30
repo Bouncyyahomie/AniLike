@@ -131,3 +131,4 @@ dmypy.json
 .deta/
 
 anime.db
+.DS_Store

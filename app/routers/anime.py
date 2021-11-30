@@ -43,6 +43,11 @@ async def get_agerating():
     data = fetch_api.kitsu_get_age_rating()
     return data
 
+@router.get("/first_introduced")
+async def get_introducedBy():
+    data = fetch_api.get_introduced()
+    return data
+
 
 @router.get("/mysql/")
 async def retrive():

@@ -40,6 +40,7 @@ const url = "http://localhost:5050/api/v1/trend"
 fetch("http://localhost:5050/api/v1/trend")
     .then(res => res.json())
     .then(data => {
+        console.log(data)
         renderGraph(data)
         document.getElementById("loading").style.display = "none"
     })

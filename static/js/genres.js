@@ -32,7 +32,7 @@ const renderGraph = (animeData) => {
             zeroline: false,
             gridwidth: 2,
             rangemode: 'tozero',
-            range:[0,100]
+            range:[0,10000]
         },
         bargap: 0.05
     };
