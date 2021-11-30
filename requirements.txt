@@ -3,6 +3,4 @@ fastapi
 jinja2
 anyio
 requests
-sqlalchemy
-pymsql
-peewee
+PyMySQL
