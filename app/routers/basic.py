@@ -10,6 +10,7 @@ from .. import crud
 
 router = APIRouter(tags=["basic routes"])
 
+
 @router.get("/")
 async def get_anime():
     """

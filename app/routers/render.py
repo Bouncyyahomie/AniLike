@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
-from .anime import read_trend
+
+from app.routers.anime import read_trend
 
 router = APIRouter(tags=["templates"])
 
@@ -14,8 +15,11 @@ def render_home(request: Request):
 
 
 @router.get("/popular-anime", response_class=HTMLResponse)
-def render_popular_anime(request: Request):
-    return templates.TemplateResponse("popular.html", {"request": request, "id": id})
+async def render_popular_anime(request: Request):
+    data = await read_trend()
+    return templates.TemplateResponse(
+        "popular.html", {"request": request, "id": id, "data": data}
+    )
 
 
 @router.get("/genres", response_class=HTMLResponse)
@@ -24,8 +28,7 @@ def render_genres_count(request: Request):
         "catagories_count.html", {"request": request, "id": id}
     )
 
-@router.get("/agerating", response_class=HTMLResponse)
+
+@router.get("/age_rating", response_class=HTMLResponse)
 def render_agerating(request: Request):
-    return templates.TemplateResponse(
-        "agerating.html", {"request": request, "id": id}
-    )
+    return templates.TemplateResponse("age_rating.html", {"request": request, "id": id})

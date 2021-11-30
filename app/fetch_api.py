@@ -34,8 +34,7 @@ def kitsu_get_catagories():
         data = content["data"]
         for anime in data:
             attr = anime["attributes"]
-            d = {"title": attr["title"],
-                 "total_media_count": attr["totalMediaCount"]}
+            d = {"title": attr["title"], "total_media_count": attr["totalMediaCount"]}
             data_list.append(d)
         curr_url = next_url
     print("end")
@@ -44,6 +43,7 @@ def kitsu_get_catagories():
 
 
 def kitsu_get_trend_anime():
+    print("start")
     url = "https://kitsu.io/api/edge/trending/anime"
     res = requests.get(url=url)
     content = res.json()["data"]
@@ -56,15 +56,14 @@ def kitsu_get_trend_anime():
         }
         data_list.append(data)
     data_list.sort(key=itemgetter("popularityRank"))
+    print("end")
     return data_list
 
 
 def kitsu_get_age_rating():
     print("start")
     data_count = []
-    curr_url = (
-        f"https://kitsu.io/api/edge/anime?page%5Blimit%5D=20&page%5Boffset%5D=0"
-    )
+    curr_url = f"https://kitsu.io/api/edge/anime?page%5Blimit%5D=20&page%5Boffset%5D=0"
     next_url = ""
     last_url = (
         "https://kitsu.io/api/edge/anime?page%5Blimit%5D=20&page%5Boffset%5D=17000"
@@ -95,20 +94,13 @@ def kitsu_get_age_rating():
             if attr["ageRatingGuide"] == "Violence, Profanity":
                 vp += 1
         curr_url = next_url
-    vp17d = {"title": "17+ (violence & profanity)",
-         "mediaCount": vp17}
-    aad = {"title": "All Ages",
-         "mediaCount": aa}
-    cdd = {"title": "Children",
-        "mediaCount": cd}
-    mdd = {"title": "Mild Nudity",
-         "mediaCount": md}
-    ndtd = {"title": "Nudity",
-         "mediaCount": ndt}
-    tood = {"title": "Teens 13 or older",
-         "mediaCount": too}
-    vpd = {"title": "Violence, Profanity",
-         "mediaCount": vp}
+    vp17d = {"title": "17+ (violence & profanity)", "mediaCount": vp17}
+    aad = {"title": "All Ages", "mediaCount": aa}
+    cdd = {"title": "Children", "mediaCount": cd}
+    mdd = {"title": "Mild Nudity", "mediaCount": md}
+    ndtd = {"title": "Nudity", "mediaCount": ndt}
+    tood = {"title": "Teens 13 or older", "mediaCount": too}
+    vpd = {"title": "Violence, Profanity", "mediaCount": vp}
     data_count.append(vp17d)
     data_count.append(aad)
     data_count.append(cdd)
@@ -142,6 +134,5 @@ def anilist_read():
     url = "https://graphql.anilist.co"
 
     # Make the HTTP Api request
-    response = requests.post(
-        url, json={"query": query, "variables": variables})
+    response = requests.post(url, json={"query": query, "variables": variables})
     print(response.text)

@@ -3,14 +3,10 @@ from .config import DB_HOST, DB_USER, DB_PASSWD, DB_NAME
 import pymysql as mysql
 
 
-conn = mysql.connect(host=DB_HOST,
-                        user=DB_USER,
-                        passwd=DB_PASSWD,
-                        db=DB_NAME)
+conn = mysql.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASSWD, db=DB_NAME)
 
 
 def db_cursor():
-    return mysql.connect(host=DB_HOST,
-                         user=DB_USER,
-                         passwd=DB_PASSWD,
-                         db=DB_NAME).cursor()
+    return mysql.connect(
+        host=DB_HOST, user=DB_USER, passwd=DB_PASSWD, db=DB_NAME
+    ).cursor()
