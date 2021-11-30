@@ -1,10 +1,13 @@
 import requests
 from operator import itemgetter
+import animelyrics
 
 kitsu_base_url = "https://kitsu.io/api/edge"
-mal_base_url = "https://api.myanimelist.net/v2"
-anilist_base_url = "https://graphql.anilist.co"
 
+
+def animelyric_get_lyric(name: str, lang: str, show_title: bool):
+    lyric = animelyrics.search_lyrics(name, lang, show_title)
+    return lyric
 
 def kitsu_get_rating(url, name: str):
     q = {"filter[text]": name}
