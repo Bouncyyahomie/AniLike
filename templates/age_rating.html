@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block content %}
+<a id="back-btn" href="http://127.0.0.1:5050/">back</a>
 <h2 id= "loading"> Loading...</h2>
-<a href="http://127.0.0.1:5050/">back</a>
-<div id="agerating"></div>
+<div id="agerating" class="chart"></div>
 <script src="{{ url_for('static', path='js/agerating.js') }}"></script>
 {% endblock %}

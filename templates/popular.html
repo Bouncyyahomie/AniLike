@@ -1,9 +1,31 @@
-{% extends "layout.html" %} {% block content %}
-<h2 id= "loading"> Loading...</h2>
-<a href="http://127.0.0.1:5050/">back</a>
-<!-- <a href="https://psv30x.deta.dev/">back</a> -->
+{% extends "layout.html" %} 
+{% block content %}
+<style>
+#back-btn{
+  background-color: rgb(142,124,195);
+  padding: 1rem 3rem;
+  border-radius: 0.5rem;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  margin: 2rem 0 ;
+}
+#back-btn:hover{
+    background-color: #5f49a0;
+    transition: 0.3s;
+    opacity: 1
+}
+    
+</style>
 
-<div id="popularAnime"></div>
+<a id="back-btn" href="http://127.0.0.1:5050/">back</a>
+
+<h2 id= "loading"> Loading...</h2>
+
+<!-- <a id="back-btn" href="https://psv30x.deta.dev/">back</a> -->
+
+<div id="popularAnime" class="chart"></div>
 
 <script src="{{ url_for('static', path='js/popular.js') }}"></script>
 {% endblock %}

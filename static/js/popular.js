@@ -1,6 +1,5 @@
 "use-strict"
 
-
 const renderGraph = (animeData) => {
     const xValue = animeData.map(ele => ele.title)
     const yValue = animeData.map(ele => ele.averageRating)
@@ -36,9 +35,9 @@ const renderGraph = (animeData) => {
     Plotly.newPlot('popularAnime', data, layout, config);
 }
 
-const url = "http://:5050/api/v1/trend"
+const url = "http://localhost:5050/api/v1/trend"
 // const url = "https://psv30x.deta.dev/api/v1/trend"
-fetch(url)
+fetch("http://localhost:5050/api/v1/trend")
     .then(res => res.json())
     .then(data => {
         renderGraph(data)
