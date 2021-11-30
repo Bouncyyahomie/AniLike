@@ -1,57 +1,76 @@
 """Crud method of the database."""
 from sqlalchemy.orm import Session
-# from .database import get_db
+from typing import Dict
+from .database import db_cursor
 from . import models, schemas
 import csv
 
-def get_anime(db: Session, anime_id: int):
-    """Retrive anime that matching given id."""
-    return db.query(models.QuestionnaireData).filter(models.QuestionnaireData.id == anime_id).first()
 
+def extract_csv():
+    data = []
+    with open("DAQ project (Responses) - Form Responses 1.csv") as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',')
+        for row in spamreader:
+            data.append(row)
+    return data
 
-def get_anime_by_name(db: Session, title: str):
-    """Retrive anime that matching given title."""
-    return db.query(models.QuestionnaireData).filter(models.QuestionnaireData.email == title).first()
+async def read_anime(anime_id: int):
+    with db_cursor() as cs:
+        cs.execute("""
+            SELECT *
+            FROM AnimeQuestionnaire
+            WHERE id = %s
+        """[anime_id])
+    result = cs.fetchone()
+    if result:
+        return result
 
+async def read_all_anime():
+    with db_cursor() as cs:
+        cs.execute("""
+            SELECT *
+            FROM AnimeQuestionnaire
+        """)
+        result = cs.fetchall()
+        if len(result) >= 1:
+            return result
 
-def create_anime(db: Session, anime: schemas.Anime):
-    """Add a new anime to the database."""
-    db_anime = models.QuestionnaireData(title=anime.title, age=anime.age, gender=anime.gender, genre=anime.genre, watch_frequency=anime.watch_frequency,
-                                        introduced_by=anime.watch_frequency, favorite=anime.favorite, sub_dub=anime.sub_dub, interested_in=anime.interest_in)
-    db.add(db_anime)
-    db.commit()
-    db.refresh(db_anime)
-    return db_anime
+async def create_anime(anime):
+    with db_cursor() as cs:
+        cs.execute(""" 
+            INSERT INTO
+        """)
 
+async def update_anime(record_id, data):
+    with db_cursor() as cs:
+        cs.execute(""" 
+            UPDATE AnimeQuestionnaire 
+            SET 
+            WHERE id = %s
+        """,[record_id])
 
-def get_anime_list(db: Session, skip: int = 0, limit: int = 100):
-    """Retrive anime list."""
-    return db.query(models.QuestionnaireData).offset(skip).limit(limit).all()
+async def delete_anime(record_id):
+    with db_cursor() as cs:
+        cs.execute(""" 
+            DELETE FROM AnimeQuestionnaire
+            WHERE id = %s
+        """,[record_id])    
 
+def init_data_base():
+    with db_cursor() as cs:
+        cs.execute(""" 
+            SELECT *
+            FROM AnimeQuestionnaire
+        """)
+        result = cs.fetchall()
+        if len(result) > 1:
+            return result
 
-def update_anime(db: Session, record_id: int, data: schemas.Anime):
-    """Update a anime with a matching ID."""
-    db_anime = db.query(models.QuestionnaireData).filter(
-        models.QuestionnaireData.id == record_id)
-    if db_anime:
-        db_anime.update(data)
-        db.commit()
-        return True
-    return False
+        # cs.execute("""
+        #     INSERT INTO AnimeQuestionnaire(id, title, age, gender, favorite genre, watch frequency, introduced by, favorite anime, sub or dub, interest in, timestamp) 
+        #     VALUES ()
+        # """)
+        # result = cs.fetchall()
+        result = extract_csv()
 
-
-def destroy_anime(db: Session, record_id: int):
-    """Delete a anime with a matching ID."""
-    db_anime = db.query(models.QuestionnaireData).filter(
-        models.QuestionnaireData.id == record_id)
-    if db_anime:
-        db_anime.delete(synchronize_session=False)
-        db.commit()
-        return True
-
-
-def init_data_base(db:Session):
-    anime_id = 1
-    first = db.query(models.QuestionnaireData).filter(models.QuestionnaireData.id == anime_id).first()
-    if first:
-        return
+        return result
