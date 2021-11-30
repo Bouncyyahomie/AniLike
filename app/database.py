@@ -2,6 +2,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import csv
+# from . import crud
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./anime.db"
 
@@ -24,6 +26,12 @@ def get_db():
     finally:
         db.close()
 
+# from .config import DB_HOST, DB_USER, DB_PASSWD, DB_NAME
+# import pymysql as mysql
 
-def init_database():
-    pass
+# def db_cursor():
+#     return mysql.connect(host=DB_HOST,
+#                          user=DB_USER,
+#                          passwd=DB_PASSWD,
+#                          db=DB_NAME).cursor()
+

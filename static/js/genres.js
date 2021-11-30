@@ -40,7 +40,8 @@ const renderGraph = (animeData) => {
     Plotly.newPlot('catagoriesCount', data, layout, config);
 }
 
-const url = "http://127.0.0.1:5050/api/v1/genres"
+const url = "http://127.0.0.1:5050/api/v1/genres" // local
+// const url = "https://psv30x.deta.dev/api/v1/genres"
 fetch(url)
     .then(res => res.json())
     .then(data => {

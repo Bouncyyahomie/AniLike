@@ -81,7 +81,7 @@ async def destroy(id, db: Session = Depends(get_db)):
     # Create a new anime
     - **id** : deleted anime id.
     """
-    if not crud.destroy_anime(db=db, anime_id=id):
+    if not crud.destroy_anime(db=db, record_id=id):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail={"message": f"Anime id {id} not found"},
@@ -95,9 +95,13 @@ async def update(id, request: schemas.Anime, db: Session = Depends(get_db)):
     # Create a new anime
     - **id** : updated anime id.
     """
-    if not crud.update_anime(db=db, anime_id=id, data=request):
+    if not crud.update_anime(db=db, record_id=id, data=request):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail={"message": f"Anime id {id} not found"},
         )
     return {"message": f"anime id {id} updated success"}
+
+# @router.get("/init")
+# async def init(db: Session = Depends(get_db)):
+#     return crud.init_data_base(db=db)

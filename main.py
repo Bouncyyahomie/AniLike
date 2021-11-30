@@ -4,7 +4,6 @@ from fastapi.staticfiles import StaticFiles
 from app.routers import render, anime
 from app import models
 from app.database import engine
-from pathlib import Path
 
 import uvicorn
 

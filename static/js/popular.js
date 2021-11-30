@@ -36,7 +36,8 @@ const renderGraph = (animeData) => {
     Plotly.newPlot('popularAnime', data, layout, config);
 }
 
-const url = "http://127.0.0.1:5050/api/v1/trend"
+const url = "http://:5050/api/v1/trend"
+// const url = "https://psv30x.deta.dev/api/v1/trend"
 fetch(url)
     .then(res => res.json())
     .then(data => {
