@@ -6,23 +6,14 @@ from . import schemas
 import csv
 
 
-def extract_csv():
-    data = []
-    with open("DAQ project (Responses) - Form Responses 1.csv") as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=",")
-        for row in spamreader:
-            data.append(row)
-    return data
-
-
 async def read_anime(anime_id: int):
     with db_cursor() as cs:
         cs.execute(
             """
             SELECT *
-            FROM AnimeQuestionnaire
+            FROM AnilikeResponse
             WHERE id = %s
-        """[
+        """, [
                 anime_id
             ]
         )
@@ -36,7 +27,7 @@ async def read_all_anime():
         cs.execute(
             """
             SELECT *
-            FROM AnimeQuestionnaire
+            FROM AnilikeResponse
         """
         )
         result = cs.fetchall()
@@ -49,7 +40,7 @@ async def create_anime(anime):
         cs.execute(
             """ 
             INSERT INTO
-        """
+        """, [anime]
         )
 
 
@@ -61,7 +52,7 @@ async def update_anime(record_id, data):
             SET 
             WHERE id = %s
         """,
-            [record_id],
+            [data, record_id]
         )
 
 
@@ -74,25 +65,3 @@ async def delete_anime(record_id):
         """,
             [record_id],
         )
-
-
-def init_data_base():
-    with db_cursor() as cs:
-        cs.execute(
-            """ 
-            SELECT *
-            FROM AnimeQuestionnaire
-        """
-        )
-        result = cs.fetchall()
-        if len(result) > 1:
-            return result
-
-        # cs.execute("""
-        #     INSERT INTO AnimeQuestionnaire(id, title, age, gender, favorite genre, watch frequency, introduced by, favorite anime, sub or dub, interest in, timestamp)
-        #     VALUES ()
-        # """)
-        # result = cs.fetchall()
-        result = extract_csv()
-
-        return result

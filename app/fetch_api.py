@@ -1,32 +1,22 @@
 import requests
 from operator import itemgetter
-
-import pymysql.cursors
-from .config import DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_TABLE
+from .database import db_cursor
 
 kitsu_base_url = "https://kitsu.io/api/edge"
 
-mydb = pymysql.connect(
-    host=DB_HOST,
-    user=DB_USER, 
-    password=DB_PASSWD,
-    database=DB_NAME,
-    cursorclass=pymysql.cursors.DictCursor
-)
-mycursor = mydb.cursor()
 
-
-def jikan_get_season_and_year(season,year):
+def jikan_get_season_and_year(season, year):
     jikan_url = f"https://jikan1.p.rapidapi.com/season/{year}/{season}"
     jikan_headers = {
-    'x-rapidapi-host': "jikan1.p.rapidapi.com",
-    'x-rapidapi-key': "49e960f4fbmsh8d08188da6387c0p10645bjsn57c8706e36bf"
+        'x-rapidapi-host': "jikan1.p.rapidapi.com",
+        'x-rapidapi-key': "49e960f4fbmsh8d08188da6387c0p10645bjsn57c8706e36bf"
     }
     response = requests.get(url=jikan_url, headers=jikan_headers)
     content = response.json()
     data_list = []
     top5 = []
     real_data = []
+    print(response.text)
     anime_data = content["anime"]
     for anime in anime_data:
         d = {"title": anime["title"]}
@@ -39,30 +29,33 @@ def jikan_get_season_and_year(season,year):
         real_data.append(data)
     return real_data
 
+
 def get_introduced():
     data = []
     friend, tele, vg, internet = 0, 0, 0, 0
-    mycursor.execute(f"SELECT `introduced by` FROM {DB_TABLE}")
-    myresult = mycursor.fetchall()
+    db_cursor.execute(f"SELECT `introduced by` FROM AnilikeResponse")
+    myresult = db_cursor.fetchall()
     for x in myresult:
         if x["introduced by"] == 'By a friend':
-            friend+=1
+            friend += 1
         if x["introduced by"] == 'Television':
-            tele+=1
+            tele += 1
         if x["introduced by"] == 'Video Game':
-            vg+=1
+            vg += 1
         if x["introduced by"] == 'The Internet':
-            internet+=1
-    fr = {"first_introduced_by": 'By a friend', "count": friend},{"first_introduced_by": "Television", "count": tele},{"first_introduced_by": "Video Game", "count":vg},{"first_introduced_by": "Internet", "count": internet}
+            internet += 1
+    fr = {"first_introduced_by": 'By a friend', "count": friend}, {"first_introduced_by": "Television", "count": tele}, {
+        "first_introduced_by": "Video Game", "count": vg}, {"first_introduced_by": "Internet", "count": internet}
     data.append(fr)
     return data
+
 
 def kitsu_get_rating(url, name: str):
     q = {"filter[text]": name}
     res = requests.get(url=f"{url}/anime", params=q)
     content = res.json()["data"][0]
     data = {
-        "title": content["attributes"]["titles"]["en"],
+        "title": content["attributes"]["titles"]["en_jp"],
         "rating": content["attributes"]["averageRating"],
     }
     return data
@@ -85,7 +78,8 @@ def kitsu_get_catagories():
         data = content["data"]
         for anime in data:
             attr = anime["attributes"]
-            d = {"title": attr["title"], "total_media_count": attr["totalMediaCount"]}
+            d = {"title": attr["title"],
+                 "total_media_count": attr["totalMediaCount"]}
             data_list.append(d)
         curr_url = next_url
     print("end")
@@ -161,29 +155,3 @@ def kitsu_get_age_rating():
     data_count.append(vpd)
     print("end")
     return data_count
-
-
-def anilist_read():
-
-    # Here we define our query as a multi-line string
-    query = """
-    query ($id: Int) { # Define which variables will be used in the query (id)
-        Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
-        id
-        title {
-        romaji
-        english
-        native
-        }
-    }
-    }
-    """
-
-    # Define our query variables and values that will be used in the query request
-    variables = {"id": 15125}
-
-    url = "https://graphql.anilist.co"
-
-    # Make the HTTP Api request
-    response = requests.post(url, json={"query": query, "variables": variables})
-    print(response.text)
