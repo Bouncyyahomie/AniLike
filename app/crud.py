@@ -34,21 +34,22 @@ async def create_anime(anime):
     with db_cursor() as cs:
         cs.execute(
             """ 
-            INSERT INTO
+            INSERT INTO `AnimeQuestionnaire(age, gender, `favorite genre`, `watch frequency`, `introduced by`, `favorite anime`, `sub or dub`, `how long`, `interest in`) 
+            VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s)
         """,
-            [anime],
+            [anime.age, anime.gender, anime.watch_frequency, anime.introduced_by, anime.favorite, anime.sub_dub, anime.how_long, anime.interest_in],
         )
 
 
-async def update_anime(record_id, data):
+async def update_anime(record_id, anime):
     with db_cursor() as cs:
         cs.execute(
             """ 
-            UPDATE AnimeQuestionnaire 
-            SET 
+            UPDATE `AnimeQuestionnaire`
+            SET age=%s, gender=%s, `favorite genre`=%s, `watch frequency`=%s, `introduced by`=%s, `favorite anime`=%s, `sub or dub`=%s, `how long`=%s, `interest in`=%s
             WHERE id = %s
         """,
-            [data, record_id],
+            [anime.age, anime.gender, anime.watch_frequency, anime.introduced_by, anime.favorite, anime.sub_dub, anime.how_long, anime.interest_in, record_id],
         )
 
 

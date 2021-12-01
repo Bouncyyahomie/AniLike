@@ -7,12 +7,15 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 description = """ 
-Primary: Questionnaire   
-Secondary: API    
+Primary: [Questionnaire](https://docs.google.com/forms/d/e/1FAIpQLSfBJs1JBGDZqJdnWimzM7tng_TN4TQg2HygKHkxUzHc88GEzg/viewform)    
+Secondary: API
+- [Kitsu](https://kitsu.docs.apiary.io/)   
+- [Jikan API Documentation (theapiguy) | RapidAPI](https://rapidapi.com/theapiguy/api/jikan1/)   
 API Provide: Anime names, episodes, songs , start and end dates, etc.   
 We aim to pair anime from input genre or find the best anime that is for you.   
 Motivation: We aim to pair anime from input genre or find the best anime that is for you.
 Pain points: Fetching data took too long because there’s too much data to process
+
 """
 tags_metadata = [
     {

@@ -11,6 +11,7 @@ class Anime(BaseModel):
     introduced_by = str
     favorite = str
     sub_dub = str
+    how_long = str
     interest_in = str
 
 

@@ -22,6 +22,7 @@ async def get_anime():
 async def show_anime(id):
     """
     # Retrive a anime
+    - **id** : a valid data id in database.
     """
     anime = await crud.read_anime(anime_id=id)
     if not anime:
@@ -35,8 +36,17 @@ async def show_anime(id):
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create(request: schemas.Anime):
     """
-    # Create a new anime
-    - **title** : a new anime title.
+    # Create a new questionnaire record
+    - **title** = str
+    - **age** = int
+    - **gender** = str
+    - **genre** = str
+    - **watch_frequency** = str
+    - **introduced_by** = str
+    - **favorite** = str
+    - **sub_dub** = str
+    - **how_long** = str
+    - **interest_in** = str
     """
     return await crud.create_anime(anime=request)
 
@@ -45,7 +55,7 @@ async def create(request: schemas.Anime):
 async def destroy(id):
     """
     # Create a new anime
-    - **id** : deleted anime id.
+    - **id** : deleted record id.
     """
     if not await crud.delete_anime(record_id=id):
         raise HTTPException(
@@ -61,7 +71,7 @@ async def update(id, request: schemas.Anime):
     # Create a new anime
     - **id** : updated anime id.
     """
-    if not await crud.update_anime(record_id=id, data=request):
+    if not await crud.update_anime(record_id=id, anime=request):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail={"message": f"Anime id {id} not found"},
