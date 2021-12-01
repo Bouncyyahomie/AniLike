@@ -25,16 +25,19 @@ def jikan_get_season_and_year(season,year):
     response = requests.get(url=jikan_url, headers=jikan_headers)
     content = response.json()
     data_list = []
-    data_ss = {
-        "season_name": content["season_name"],
-        "season_year": content["season_year"]
-    }
-    data_list.append(data_ss)
+    top5 = []
+    real_data = []
     anime_data = content["anime"]
     for anime in anime_data:
         d = {"title": anime["title"]}
         data_list.append(d)
-    return data_list
+    for i in range(5):
+        top5.append(data_list[i])
+    for anime in top5:
+        k = anime["title"]
+        data = kitsu_get_rating(url=kitsu_base_url, name=k)
+        real_data.append(data)
+    return real_data
 
 def get_introduced():
     data = []
