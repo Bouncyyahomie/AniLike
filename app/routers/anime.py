@@ -53,3 +53,8 @@ async def get_introducedBy():
 async def retrive():
     anime = crud.init_data_base()
     return anime
+
+@router.get("/season")
+async def jikan_get_season():
+    anime = fetch_api.jikan_get_season_and_year()
+    return anime

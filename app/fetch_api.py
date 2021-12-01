@@ -2,9 +2,7 @@ import requests
 from operator import itemgetter
 
 import pymysql.cursors
-from app.config import DB_HOST,DB_USER,DB_PASSWD,DB_NAME,DB_TABLE
-import animelyrics
-
+from .config import DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_TABLE
 
 kitsu_base_url = "https://kitsu.io/api/edge"
 
@@ -16,6 +14,23 @@ mydb = pymysql.connect(
     cursorclass=pymysql.cursors.DictCursor
 )
 mycursor = mydb.cursor()
+
+jikan_url = "https://jikan1.p.rapidapi.com/season/2018/winter"
+
+jikan_headers = {
+    'x-rapidapi-host': "jikan1.p.rapidapi.com",
+    'x-rapidapi-key': "49e960f4fbmsh8d08188da6387c0p10645bjsn57c8706e36bf"
+    }
+
+def jikan_get_season_and_year():
+    response = requests.get(url=jikan_url, headers=jikan_headers)
+    content = response.json()
+    data = {
+        "season_name": content["season_name"],
+        "season_year": content["season_year"],
+        "anime": content["anime"]
+    }
+    return data
 
 def get_introduced():
     data = []
@@ -34,11 +49,6 @@ def get_introduced():
     fr = {"first_introduced_by": 'By a friend', "count": friend},{"first_introduced_by": "Television", "count": tele},{"first_introduced_by": "Video Game", "count":vg},{"first_introduced_by": "Internet", "count": internet}
     data.append(fr)
     return data
-    
-
-def animelyric_get_lyric(name: str, lang: str, show_title: bool):
-    lyric = animelyrics.search_lyrics(name, lang, show_title)
-    return lyric
 
 def kitsu_get_rating(url, name: str):
     q = {"filter[text]": name}
