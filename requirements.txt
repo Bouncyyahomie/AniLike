@@ -4,4 +4,4 @@ jinja2
 anyio
 requests
 PyMySQL
-mysql
+animelyrics
