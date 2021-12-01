@@ -2,8 +2,10 @@
 
 
 const renderGraph = (animeData) => {
-    const xValue = animeData.map(ele => ele.first_introduced_by)
-    const yValue = animeData.map(ele => ele.count)
+    const xValue = animeData[0].map(ele => ele.first_introduced_by)
+    console.log(xValue)
+    const yValue = animeData[0].map(ele => ele.count)
+    console.log(yValue)
     const data = [
         {
             labels: xValue,
@@ -16,14 +18,14 @@ const renderGraph = (animeData) => {
         font: {
             family: 'Raleway, sans-serif'
             },
-        height: 600,
-        width: 500
+        // height: 600,
+        // width: 500
         }
     const config = { responsive: true }
     Plotly.newPlot('introdcued_by', data, layout, config);
 }
 
-const url = "http://127.0.0.1:5050/api/v1/first_introduced"
+const url = "http://localhost:5050/api/v1/first_introduced"
 fetch(url)
     .then(res => res.json())
     .then(data => {
