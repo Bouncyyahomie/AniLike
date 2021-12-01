@@ -36,9 +36,13 @@ def render_agerating(request: Request):
 
 @router.get("/first_introduced", response_class=HTMLResponse)
 def render_first_introduced(request: Request):
-    return templates.TemplateResponse("first_introduced.html", {"request": request, "id": id})
+    return templates.TemplateResponse(
+        "first_introduced.html", {"request": request, "id": id}
+    )
 
 
 @router.get("/season-trend", response_class=HTMLResponse)
 def render_anime_season(request: Request):
-    return templates.TemplateResponse("season_trend.html", {"request": request, "id": id})
+    return templates.TemplateResponse(
+        "season_trend.html", {"request": request, "id": id}
+    )

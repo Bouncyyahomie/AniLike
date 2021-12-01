@@ -13,9 +13,8 @@ async def read_anime(anime_id: int):
             SELECT *
             FROM AnilikeResponse
             WHERE id = %s
-        """, [
-                anime_id
-            ]
+        """,
+            [anime_id],
         )
     result = cs.fetchone()
     if result:
@@ -40,7 +39,8 @@ async def create_anime(anime):
         cs.execute(
             """ 
             INSERT INTO
-        """, [anime]
+        """,
+            [anime],
         )
 
 
@@ -52,7 +52,7 @@ async def update_anime(record_id, data):
             SET 
             WHERE id = %s
         """,
-            [data, record_id]
+            [data, record_id],
         )
 
 

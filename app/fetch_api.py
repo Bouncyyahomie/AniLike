@@ -8,8 +8,8 @@ kitsu_base_url = "https://kitsu.io/api/edge"
 def jikan_get_season_and_year(season, year):
     jikan_url = f"https://jikan1.p.rapidapi.com/season/{year}/{season}"
     jikan_headers = {
-        'x-rapidapi-host': "jikan1.p.rapidapi.com",
-        'x-rapidapi-key': "49e960f4fbmsh8d08188da6387c0p10645bjsn57c8706e36bf"
+        "x-rapidapi-host": "jikan1.p.rapidapi.com",
+        "x-rapidapi-key": "49e960f4fbmsh8d08188da6387c0p10645bjsn57c8706e36bf",
     }
     response = requests.get(url=jikan_url, headers=jikan_headers)
     content = response.json()
@@ -36,16 +36,20 @@ def get_introduced():
     db_cursor.execute(f"SELECT `introduced by` FROM AnilikeResponse")
     myresult = db_cursor.fetchall()
     for x in myresult:
-        if x["introduced by"] == 'By a friend':
+        if x["introduced by"] == "By a friend":
             friend += 1
-        if x["introduced by"] == 'Television':
+        if x["introduced by"] == "Television":
             tele += 1
-        if x["introduced by"] == 'Video Game':
+        if x["introduced by"] == "Video Game":
             vg += 1
-        if x["introduced by"] == 'The Internet':
+        if x["introduced by"] == "The Internet":
             internet += 1
-    fr = {"first_introduced_by": 'By a friend', "count": friend}, {"first_introduced_by": "Television", "count": tele}, {
-        "first_introduced_by": "Video Game", "count": vg}, {"first_introduced_by": "Internet", "count": internet}
+    fr = (
+        {"first_introduced_by": "By a friend", "count": friend},
+        {"first_introduced_by": "Television", "count": tele},
+        {"first_introduced_by": "Video Game", "count": vg},
+        {"first_introduced_by": "Internet", "count": internet},
+    )
     data.append(fr)
     return data
 
@@ -78,8 +82,7 @@ def kitsu_get_catagories():
         data = content["data"]
         for anime in data:
             attr = anime["attributes"]
-            d = {"title": attr["title"],
-                 "total_media_count": attr["totalMediaCount"]}
+            d = {"title": attr["title"], "total_media_count": attr["totalMediaCount"]}
             data_list.append(d)
         curr_url = next_url
     print("end")

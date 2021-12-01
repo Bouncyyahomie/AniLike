@@ -10,6 +10,7 @@ from .. import crud
 
 router = APIRouter(tags=["complex"])
 
+
 @router.get("/demo", include_in_schema=False)
 async def read_anime():
     data = []
@@ -42,6 +43,7 @@ async def get_agerating():
     data = fetch_api.kitsu_get_age_rating()
     return data
 
+
 @router.get("/first_introduced")
 async def get_introducedBy():
     data = fetch_api.get_introduced()
@@ -53,7 +55,8 @@ async def retrive():
     anime = crud.init_data_base()
     return anime
 
+
 @router.get("/season_trend/{season}/{year}")
-async def jikan_get_season(season: str,year):
-    anime = fetch_api.jikan_get_season_and_year(season,year)
+async def jikan_get_season(season: str, year):
+    anime = fetch_api.jikan_get_season_and_year(season, year)
     return anime
