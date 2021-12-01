@@ -15,22 +15,26 @@ mydb = pymysql.connect(
 )
 mycursor = mydb.cursor()
 
-jikan_url = "https://jikan1.p.rapidapi.com/season/2018/winter"
 
-jikan_headers = {
+def jikan_get_season_and_year(season,year):
+    jikan_url = f"https://jikan1.p.rapidapi.com/season/{year}/{season}"
+    jikan_headers = {
     'x-rapidapi-host': "jikan1.p.rapidapi.com",
     'x-rapidapi-key': "49e960f4fbmsh8d08188da6387c0p10645bjsn57c8706e36bf"
     }
-
-def jikan_get_season_and_year():
     response = requests.get(url=jikan_url, headers=jikan_headers)
     content = response.json()
-    data = {
+    data_list = []
+    data_ss = {
         "season_name": content["season_name"],
-        "season_year": content["season_year"],
-        "anime": content["anime"]
+        "season_year": content["season_year"]
     }
-    return data
+    data_list.append(data_ss)
+    anime_data = content["anime"]
+    for anime in anime_data:
+        d = {"title": anime["title"]}
+        data_list.append(d)
+    return data_list
 
 def get_introduced():
     data = []
