@@ -1,11 +1,11 @@
 import requests
 from operator import itemgetter
+
 import pymysql.cursors
 from app.config import DB_HOST,DB_USER,DB_PASSWD,DB_NAME,DB_TABLE
+import animelyrics
 
 kitsu_base_url = "https://kitsu.io/api/edge"
-mal_base_url = "https://api.myanimelist.net/v2"
-anilist_base_url = "https://graphql.anilist.co"
 
 mydb = pymysql.connect(
     host=DB_HOST,
@@ -34,6 +34,10 @@ def get_introduced():
     data.append(fr)
     return data
     
+
+def animelyric_get_lyric(name: str, lang: str, show_title: bool):
+    lyric = animelyrics.search_lyrics(name, lang, show_title)
+    return lyric
 
 def kitsu_get_rating(url, name: str):
     q = {"filter[text]": name}
