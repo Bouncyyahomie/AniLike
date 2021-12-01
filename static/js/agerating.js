@@ -26,6 +26,7 @@ const renderGraph = (animeData) => {
 }
 
 const url = "http://127.0.0.1:5050/api/v1/agerating"
+// const url = "https://09mals.deta.dev/api/v1/agerating"
 fetch(url)
     .then(res => res.json())
     .then(data => {

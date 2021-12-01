@@ -25,7 +25,9 @@ const renderGraph = (animeData) => {
     Plotly.newPlot('introdcued_by', data, layout, config);
 }
 
-const url = "http://localhost:5050/api/v1/first_introduced"
+const url = "http://127.0.0.1:5050/api/v1/first_introduced"
+// const url = "https://09mals.deta.dev/api/v1/first_introduced"
+
 fetch(url)
     .then(res => res.json())
     .then(data => {

@@ -2,7 +2,7 @@
 
 const renderGraph = (animeData) => {
     const xValue = animeData.map(ele => ele.title)
-    const yValue = animeData.map(ele => ele.averageRating)
+    const yValue = animeData.map(ele => ele.average_rating)
     const data = [
         {
             x: xValue,
@@ -11,9 +11,9 @@ const renderGraph = (animeData) => {
             marker: {
                 color: 'rgb(142,124,195)'
             },
-            textposition: 'auto',
         }
     ]
+    console.log(data)
     const layout = {
         title: 'Popular Anime',
         font: {
@@ -35,9 +35,9 @@ const renderGraph = (animeData) => {
     Plotly.newPlot('popularAnime', data, layout, config);
 }
 
-const url = "http://localhost:5050/api/v1/trend"
-// const url = "https://psv30x.deta.dev/api/v1/trend"
-fetch("http://localhost:5050/api/v1/trend")
+const url = "http://127.0.0.1:5050/api/v1/popular-anime"
+// const url = "https://09mals.deta.dev/api/v1/popular-anime"
+fetch(url)
     .then(res => res.json())
     .then(data => {
         console.log(data)

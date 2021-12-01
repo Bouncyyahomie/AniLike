@@ -1,9 +1,5 @@
 """Crud method of the database."""
-from sqlalchemy.orm import Session
-from typing import Dict
 from .database import db_cursor
-from . import schemas
-import csv
 
 
 async def read_anime(anime_id: int):
@@ -65,3 +61,9 @@ async def delete_anime(record_id):
         """,
             [record_id],
         )
+
+
+async def get_introduced():
+    with db_cursor() as cs:
+        cs.execute("SELECT `introduced by` FROM AnilikeResponse")
+    return [row[0] for row in cs.fetchall()]

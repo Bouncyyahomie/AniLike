@@ -1,10 +1,8 @@
 """API router for anime."""
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from starlette.status import HTTP_202_ACCEPTED, HTTP_204_NO_CONTENT
-from app import fetch_api
 from app import schemas
 
-from typing import List
 from .. import crud
 
 

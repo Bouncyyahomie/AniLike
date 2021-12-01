@@ -1,7 +1,7 @@
 "use-strict"
 
 const url = "http://127.0.0.1:5050/api/v1/season_trend"
-// const url = "https://psv30x.deta.dev/season-trend"
+// const url = "https://09mals.deta.dev/season-trend"
 
 const seasons = document.getElementById("seasons")
 const submitBtn = document.getElementById("submit")

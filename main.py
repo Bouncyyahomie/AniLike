@@ -7,7 +7,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 description = """ 
-
+Primary: Questionnaire   
+Secondary: API    
+API Provide: Anime names, episodes, songs , start and end dates, etc.   
+We aim to pair anime from input genre or find the best anime that is for you.   
+Motivation: We aim to pair anime from input genre or find the best anime that is for you.
+Pain points: Fetching data took too long because there’s too much data to process
 """
 tags_metadata = [
     {

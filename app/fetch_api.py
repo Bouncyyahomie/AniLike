@@ -16,7 +16,6 @@ def jikan_get_season_and_year(season, year):
     data_list = []
     top5 = []
     real_data = []
-    print(response.text)
     anime_data = content["anime"]
     for anime in anime_data:
         d = {"title": anime["title"]}
@@ -33,16 +32,18 @@ def jikan_get_season_and_year(season, year):
 def get_introduced():
     data = []
     friend, tele, vg, internet = 0, 0, 0, 0
-    db_cursor.execute(f"SELECT `introduced by` FROM AnilikeResponse")
-    myresult = db_cursor.fetchall()
+    with db_cursor() as cs:
+        cs.execute("SELECT `introduced by` FROM AnilikeResponse")
+    myresult = cs.fetchall()
     for x in myresult:
-        if x["introduced by"] == "By a friend":
+        x = x[0]
+        if x == "By a friend":
             friend += 1
-        if x["introduced by"] == "Television":
+        if x == "Television":
             tele += 1
-        if x["introduced by"] == "Video Game":
+        if x == "Video Game":
             vg += 1
-        if x["introduced by"] == "The Internet":
+        if x == "The Internet":
             internet += 1
     fr = (
         {"first_introduced_by": "By a friend", "count": friend},
@@ -99,11 +100,11 @@ def kitsu_get_trend_anime():
     for anime in content:
         data = {
             "title": anime["attributes"]["titles"]["en_jp"],
-            "averageRating": anime["attributes"]["averageRating"],
-            "popularityRank": anime["attributes"]["popularityRank"],
+            "average_rating": anime["attributes"]["averageRating"],
+            "popularity_rank": anime["attributes"]["popularityRank"],
         }
         data_list.append(data)
-    data_list.sort(key=itemgetter("popularityRank"))
+    data_list.sort(key=itemgetter("popularity_rank"))
     print("end")
     return data_list
 

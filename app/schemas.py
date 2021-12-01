@@ -17,3 +17,24 @@ class Anime(BaseModel):
 class ShowAnime(Anime):
     class Config:
         orm_mode = True
+
+
+class ShowTrendAnime(BaseModel):
+    title: str
+    average_rating: str
+    popularity_rank: int
+
+
+class ShowGenre(BaseModel):
+    title: str
+    total_media_count: int
+
+
+class ShowIntroduce(BaseModel):
+    first_introduced_by: str
+    count: int
+
+
+class ShowRating(BaseModel):
+    title: str
+    rating: int

@@ -41,7 +41,7 @@ const renderGraph = (animeData) => {
 }
 
 const url = "http://127.0.0.1:5050/api/v1/genres" // local
-// const url = "https://psv30x.deta.dev/api/v1/genres"
+// const url = "https://09mals.deta.dev/api/v1/genres"
 fetch(url)
     .then(res => res.json())
     .then(data => {
