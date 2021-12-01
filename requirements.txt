@@ -5,4 +5,4 @@ anyio
 requests
 PyMySQL
 animelyrics
-dotenv
+python-dotenv
