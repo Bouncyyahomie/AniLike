@@ -1,0 +1,23 @@
+{% extends "layout.html" %} {% block content %}
+<a id="back-btn" href="http://127.0.0.1:5050/">back</a>
+
+<!-- <a id="back-btn" href="https://psv30x.deta.dev/">back</a> -->
+<form action=""
+
+>
+    <label for="seasons"></label>
+    <select name="seasons" id="seasons">
+        <option value="winter">winter</option>
+        <option value="spring">spring</option>
+        <option value="summer">summer</option>
+        <option value="fall">fall</option>
+    </select>
+    <input type="text" placeholder="" id="years" >
+    <button id="submit">Search</button>
+</form>
+
+
+<h2 id= "loading"> Loading...</h2>
+<div id="anime-season" class="chart"></div>
+<script src="{{ url_for('static', path='js/seasonTrend.js') }}"></script>
+{% endblock %}

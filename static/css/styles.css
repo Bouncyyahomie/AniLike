@@ -1,0 +1,34 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Times New Roman", Times, serif; 
+  font-size: 18px;
+}
+
+h1 {
+  margin: 0 0 2rem 0;
+}
+
+ul {
+  padding: 0 0 0 1rem;
+  line-height: 2rem;
+}
+
+.container {
+  padding: 3rem;
+}
+
+.chart {
+  margin-top: 10rem;
+}
+
+#loading {
+  margin: 2rem auto;
+  text-align: center;
+}

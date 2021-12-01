@@ -1,0 +1,8 @@
+{% extends "layout.html" %} {% block content %}
+<a id="back-btn" href="http://127.0.0.1:5050/">back</a>
+
+<!-- <a id="back-btn" href="https://psv30x.deta.dev/">back</a> -->
+<h2 id="loading">Loading...</h2>
+<div id="introdcued_by" class="chart"></div>
+<script src="{{ url_for('static', path='js/introduced_by.js') }}"></script>
+{% endblock %}
