@@ -21,7 +21,7 @@ const renderGraph = (animeData) => {
         }
     ]
     const layout = {
-        title: 'First Introduced By',
+        title: 'Trending anime in selected season',
         font: {
             family: 'Raleway, sans-serif'
             },
