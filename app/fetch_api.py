@@ -1,9 +1,39 @@
 import requests
 from operator import itemgetter
+
+import pymysql.cursors
+from app.config import DB_HOST,DB_USER,DB_PASSWD,DB_NAME,DB_TABLE
 import animelyrics
 
 kitsu_base_url = "https://kitsu.io/api/edge"
 
+mydb = pymysql.connect(
+    host=DB_HOST,
+    user=DB_USER, 
+    password=DB_PASSWD,
+    database=DB_NAME,
+    cursorclass=pymysql.cursors.DictCursor
+)
+mycursor = mydb.cursor()
+
+def get_introduced():
+    data = []
+    friend, tele, vg, internet = 0, 0, 0, 0
+    mycursor.execute(f"SELECT `introduced by` FROM {DB_TABLE}")
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        if x["introduced by"] == 'By a friend':
+            friend+=1
+        if x["introduced by"] == 'Television':
+            tele+=1
+        if x["introduced by"] == 'Video Game':
+            vg+=1
+        if x["introduced by"] == 'The Internet':
+            internet+=1
+    fr = {"first_introduced_by": 'By a friend', "count": friend},{"first_introduced_by": "Television", "count": tele},{"first_introduced_by": "Video Game", "count":vg},{"first_introduced_by": "Internet", "count": internet}
+    data.append(fr)
+    return data
+    
 
 def animelyric_get_lyric(name: str, lang: str, show_title: bool):
     lyric = animelyrics.search_lyrics(name, lang, show_title)

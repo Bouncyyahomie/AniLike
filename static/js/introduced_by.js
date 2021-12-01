@@ -2,9 +2,9 @@
 
 
 const renderGraph = (animeData) => {
-    const xValue = animeData.map(ele => ele.title)
+    const xValue = animeData[0].map(ele => ele.first_introduced_by)
     console.log(xValue)
-    const yValue = animeData.map(ele => ele.mediaCount)
+    const yValue = animeData[0].map(ele => ele.count)
     console.log(yValue)
     const data = [
         {
@@ -14,23 +14,23 @@ const renderGraph = (animeData) => {
         }
     ]
     const layout = {
-        title: 'Age Rating',
+        title: 'First Introduced By',
         font: {
             family: 'Raleway, sans-serif'
             },
-        height: 600,
-        width: 500
+        // height: 600,
+        // width: 500
         }
     const config = { responsive: true }
-    Plotly.newPlot('agerating', data, layout, config);
+    Plotly.newPlot('introdcued_by', data, layout, config);
 }
 
-const url = "http://127.0.0.1:5050/api/v1/agerating"
+const url = "http://localhost:5050/api/v1/first_introduced"
 fetch(url)
     .then(res => res.json())
     .then(data => {
-        console.log(data)
         renderGraph(data)
         document.getElementById("loading").style.display = "none"
+        console.log(data)
     })
     .catch(err => console.error(err))
