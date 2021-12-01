@@ -5,6 +5,7 @@ import pymysql.cursors
 from app.config import DB_HOST,DB_USER,DB_PASSWD,DB_NAME,DB_TABLE
 import animelyrics
 
+
 kitsu_base_url = "https://kitsu.io/api/edge"
 
 mydb = pymysql.connect(
