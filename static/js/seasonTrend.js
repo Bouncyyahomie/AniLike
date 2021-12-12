@@ -10,7 +10,7 @@ document.getElementById("loading").style.display = "none"
 
 
 
-const renderGraph = (animeData) => {
+const renderGraph = (animeData, year, season) => {
     const titleValues = animeData.map(ele => ele.title)
     const ratingValue = animeData.map(ele => ele.rating)
     const data = [
@@ -21,9 +21,10 @@ const renderGraph = (animeData) => {
         }
     ]
     const layout = {
-        title: 'First Introduced By',
+        title: `Top 5 ${season} ${year} Anime`,
         font: {
-            family: 'Raleway, sans-serif'
+            family: 'Raleway, sans-serif',
+            size: 20
             },
         }
     const config = { responsive: true }
@@ -45,7 +46,7 @@ submitBtn.onclick = (event) => {
     fetch(`${url}/${selectedValue}/${years}`)
         .then(res => res.json())
         .then(data => {
-            renderGraph(data)
+            renderGraph(data, years, selectedValue)
             document.getElementById("loading").style.display = "none"
         })
         .catch(err => console.error(err))

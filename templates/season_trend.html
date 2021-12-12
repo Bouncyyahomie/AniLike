@@ -1,23 +1,25 @@
 {% extends "layout.html" %} {% block content %}
-<a id="back-btn" href="http://127.0.0.1:5050/">back</a>
-
+<a id="back-btn" class="btn btn-primary" href="http://127.0.0.1:5050/">back</a>
 <!-- <a id="back-btn" href="https://psv30x.deta.dev/">back</a> -->
-<form action=""
 
+<form action=""
+class="mt-3"
 >
-    <label for="seasons"></label>
-    <select name="seasons" id="seasons">
-        <option value="winter">winter</option>
-        <option value="spring">spring</option>
-        <option value="summer">summer</option>
-        <option value="fall">fall</option>
-    </select>
-    <input type="text" placeholder="" id="years" >
-    <button id="submit">Search</button>
+    <label for="seasons" class="fs-4 mb-3" >Input the season and years</label>
+    <div class="d-flex gap-2 input-group">
+        <select name="seasons" id="seasons" class="form-select form-control" >
+            <option value="winter">winter</option>
+            <option value="spring">spring</option>
+            <option value="summer">summer</option>
+            <option value="fall">fall</option>
+        </select>
+        <input type="text" placeholder="" id="years" class="form-control" >
+        <button type="button" class="btn btn-primary" id="submit">Search</button>
+    </div>
 </form>
 
 
 <h2 id= "loading"> Loading...</h2>
-<div id="anime-season" class="chart"></div>
+<div id="anime-season"></div>
 <script src="{{ url_for('static', path='js/seasonTrend.js') }}"></script>
 {% endblock %}

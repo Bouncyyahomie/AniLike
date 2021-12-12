@@ -1,8 +1,4 @@
 "use-strict"
-
-"use-strict"
-
-
 const renderGraph = (animeData) => {
     const xValue = animeData.map(ele => ele.title)
     const yValue = animeData.map(ele => ele.total_media_count)
@@ -14,27 +10,37 @@ const renderGraph = (animeData) => {
             marker: {
                 color: 'rgb(142,124,195)'
             },
-            textposition: 'auto',
+            // textposition: 'auto',
         }
     ]
     const layout = {
-        title: 'Anime Catagories',
+        title: 'Anime Catagories with their media count',
         font: {
-            family: 'Raleway, sans-serif'
+            family: 'Raleway, sans-serif',
+            size: 20
         },
         showlegend: false,
         xaxis: {
-            ticks: "outside",
-            tick0: 0,
-            dtick: 0.1
+            
+            // tickmode: "linear",
+            tickfont: {
+                size: 14,
+            },
         },
         yaxis: {
             zeroline: false,
             gridwidth: 2,
             rangemode: 'tozero',
-            range:[0,10000]
         },
-        bargap: 0.05
+        bargap: 0.05,
+        height: 600,
+        margin: {
+            // l: 50,
+            // r: 350,
+            b: 200,
+            // t: 50,
+            pad: 4
+        },
     };
     const config = { responsive: true }
     Plotly.newPlot('catagoriesCount', data, layout, config);
@@ -49,4 +55,3 @@ fetch(url)
         document.getElementById("loading").style.display = "none"
     })
     .catch(err => console.error(err))
-

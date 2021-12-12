@@ -15,13 +15,23 @@ const renderGraph = (animeData) => {
     ]
     console.log(data)
     const layout = {
+
         title: 'Popular Anime',
         font: {
-            family: 'Raleway, sans-serif'
+            family: 'Raleway, sans-serif',
+            size: 20
         },
         showlegend: false,
         xaxis: {
-            tickangle: -45
+            // ticks: "outside",
+            // tick0: 0,
+            // dtick: 0.1
+            tickmode: "linear",
+            tick0: 0.5,
+            dtick: 0.75,
+            tickfont: {
+                size: 14,
+            },
         },
         yaxis: {
             zeroline: false,
@@ -29,7 +39,15 @@ const renderGraph = (animeData) => {
             rangemode: 'tozero',
             range:[0,100]
         },
-        bargap: 0.05
+        bargap: 0.05,
+        margin: {
+            // l: 50,
+            // r: 350,
+            b: 200,
+            // t: 50,
+            pad: 4
+        },
+
     };
     const config = { responsive: true }
     Plotly.newPlot('popularAnime', data, layout, config);

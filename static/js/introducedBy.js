@@ -14,11 +14,11 @@ const renderGraph = (animeData) => {
         }
     ]
     const layout = {
-        title: 'First Introduced By',
+        title: 'First Introducing to Anime method',
         font: {
-            family: 'Raleway, sans-serif'
+            family: 'Raleway, sans-serif',
+            size: 20
             },
-        // height: 600,
         // width: 500
         }
     const config = { responsive: true }
