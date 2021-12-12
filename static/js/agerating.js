@@ -16,7 +16,8 @@ const renderGraph = (animeData) => {
     const layout = {
         title: 'Age Rating',
         font: {
-            family: 'Raleway, sans-serif'
+            family: 'Raleway, sans-serif',
+            size: 20
             },
         height: 600,
         width: 500

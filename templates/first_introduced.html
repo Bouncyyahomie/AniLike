@@ -1,8 +1,48 @@
 {% extends "layout.html" %} {% block content %}
-<a id="back-btn" href="http://127.0.0.1:5050/">back</a>
+<a id="back-btn" class="btn btn-primary"  href="http://127.0.0.1:5050/">back</a>
 
 <!-- <a id="back-btn" href="https://psv30x.deta.dev/">back</a> -->
 <h2 id="loading">Loading...</h2>
-<div id="introdcued_by" class="chart"></div>
-<script src="{{ url_for('static', path='js/introduced_by.js') }}"></script>
+<div id="introdcued_by"></div>
+<script src="{{ url_for('static', path='js/introducedBy.js') }}"></script>
 {% endblock %}
+<!-- {% block javascript %}
+<script>
+"use-strict"
+const renderGraph = (animeData) => {
+    const xValue = animeData[0].map(ele => ele.first_introduced_by)
+    console.log(xValue)
+    const yValue = animeData[0].map(ele => ele.count)
+    console.log(yValue)
+    const data = [
+        {
+            labels: xValue,
+            values: yValue,
+            type: "pie",
+        }
+    ]
+    const layout = {
+        title: 'First Introducing to Anime method',
+        font: {
+            family: 'Raleway, sans-serif',
+            size: 20
+            },
+        // width: 500
+        }
+    const config = { responsive: true }
+    Plotly.newPlot('introdcued_by', data, layout, config);
+}
+
+const url = "http://127.0.0.1:5050/api/v1/first_introduced"
+// const url = "https://09mals.deta.dev/api/v1/first_introduced"
+
+fetch(url)
+    .then(res => res.json())
+    .then(data => {
+        renderGraph(data)
+        document.getElementById("loading").style.display = "none"
+        console.log(data)
+    })
+    .catch(err => console.error(err))
+</script>
+{% endblock %} -->

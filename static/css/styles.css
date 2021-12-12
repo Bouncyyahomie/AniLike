@@ -6,9 +6,10 @@
 
 body {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   font-family: "Times New Roman", Times, serif; 
   font-size: 18px;
+  background-color: aliceblue;
 }
 
 h1 {
@@ -24,9 +25,9 @@ ul {
   padding: 3rem;
 }
 
-.chart {
+/* .chart {
   margin-top: 10rem;
-}
+} */
 
 #loading {
   margin: 2rem auto;

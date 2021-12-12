@@ -3,7 +3,6 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from app.routers import basic, render, anime
 from fastapi.middleware.cors import CORSMiddleware
-
 import uvicorn
 
 description = """ 
@@ -56,11 +55,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 
 app.include_router(render.router)
 app.include_router(anime.router, prefix=f"/api/v{version}")
 app.include_router(basic.router, prefix=f"/api/v{version}")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=5050, reload=True)
