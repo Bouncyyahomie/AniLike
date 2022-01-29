@@ -1,7 +1,5 @@
 # AniLike
 
-https://bit.ly/3KRNZIH
-
 ## Team member
 
 | name                     | student id | department                         | faculty     | university |
@@ -14,6 +12,7 @@ https://bit.ly/3KRNZIH
 
 Anilike is an APIs created for people who would love to watch anime but don't know what to watch. Anilike provides you with information about anime for them. For example, the recently good anime with rating. In addition, We collect the data from many places and collect the user's preference data about anime through a questionnaire. Then, integrate and show them with a chart in the web application. To conclude, we aim to pair anime and help you find the best anime that is generally best for you.
 
+https://bit.ly/3KRNZIH
 
 - Top 5 seasonal anime with name and rating score.
 - Age rating Guide.
